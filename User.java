@@ -1,12 +1,9 @@
-package Dompet;
+package Entity;
 
-public class User extends Pengguna{
-    private String email, pass;
-
-    public User(String email, String pass, String nama, String notelp, String alamat, String noktp){
-        super(nama,notelp,alamat,noktp);
-        this.email = email;
-        this.pass = pass;
+public class User extends Penduduk {
+    protected String email, pass;
+    protected int id, saldo;
+    public User(){
     }
 
     public String getEmail (){
@@ -23,6 +20,22 @@ public class User extends Pengguna{
 
     public void setPass(String pass){
         this.pass = pass;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getSaldo(){
+        return saldo;
+    }
+
+    public void setSaldo(int saldo){
+        this.saldo = saldo;
     }
 
 }
