@@ -1,19 +1,16 @@
 package Controller;
 
+import Entity.Rekening;
 import Entity.User;
+import Model.AllObjectModel;
 
 import java.util.ArrayList;
 
 public class UserController {
 
-    public void registrasi (String email, String pass, String nama, String notkp, String notelp, String alamat){
-        User userEntity = new User();
-        userEntity.setEmail(email);
-        userEntity.setPass(pass);
-        userEntity.setNama(nama);
-        userEntity.setNoktp(notkp);
-        userEntity.setNotelp(notelp);
-        userEntity.setAlamat(alamat);
+    public void registrasi (String email, String pass, String nama, String noktp, String notelp, String alamat, int saldo){
+        User userEntity = new User(email, pass, nama, noktp, notelp, alamat);
+        Rekening rek = new Rekening(saldo);
         AllObjectModel.userModel.registrasi(userEntity);
     }
 
@@ -34,17 +31,13 @@ public class UserController {
     public ArrayList<User> getDataUser(){
         return AllObjectModel.userModel.getUser();
     }
-
+    public ArrayList<Rekening> getSaldo(int cek) {return  AllObjectModel.userModel.getsaldoby(cek);}
     public ArrayList<User> getByid(int cek){
-        return AllObjectModel.userModel.getUser(cek);
+        return AllObjectModel.userModel.getUserby(cek);
     }
 
     public int login(String email, String pass){
         int cek = AllObjectModel.userModel.cekLogin(email,pass);
         return cek;
-    }
-
-    public String saldo(){
-        return AllObjectModel.userModel.saldo();
     }
 }

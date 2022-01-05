@@ -3,8 +3,6 @@ package Entity;
 public class Penduduk {
     protected String nama, notelp, alamat, noktp;
 
-    public Penduduk(){}
-
     public Penduduk(String nama, String noktp, String notelp, String alamat){
         this.nama = nama;
         this.notelp = notelp;

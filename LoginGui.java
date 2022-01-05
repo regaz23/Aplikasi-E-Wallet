@@ -1,12 +1,25 @@
 package GUI;
 
+import Controller.AllObjectController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginGui extends Component{
+public class LoginGui extends JFrame{
     public LoginGui () {comp();}
+    JLabel email = new JLabel("EMAIL");
+    JLabel pass = new JLabel("PASSWORD");
+    JButton btnlogin = new JButton("LOGIN");
+    JButton btnregis = new JButton("REGISTRASI");
+    JTextField jtxtemail = new JTextField();
+    JPasswordField jtxtpass = new JPasswordField();
+
+    void kosong (){
+        jtxtemail.setText(null);
+        jtxtpass.setText(null);
+    }
 
     private void comp(){
         setTitle("LOGIN");
@@ -51,6 +64,14 @@ public class LoginGui extends Component{
                     JOptionPane.showMessageDialog(null, "GAGAL Login");
                     kosong();
                 }
+            }
+        });
+
+        btnregis.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new RegisGui().setVisible(true);
             }
         });
 

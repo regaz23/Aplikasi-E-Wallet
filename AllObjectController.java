@@ -1,4 +1,4 @@
-package GUI;
+package Controller;
 
 import Controller.UserController;
 
