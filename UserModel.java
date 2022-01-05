@@ -157,40 +157,19 @@ public class UserModel {
         int asal = cekTF(namaasal);
         int penerima = cekTF(namapenerima);
 
-        int saldoasal = cekTFsaldo(asal);
-        int saldopenerima = cekTFsaldo(penerima);
+        int saldoasal = asal - jumlah;
+        int saldopenerima = penerima + jumlah;
 
-        int saldorek = saldoasal - jumlah;
-        int saldotf = saldopenerima + jumlah;
-
-        updateSaldo(saldorek,asal);
-        updateSaldo(saldotf,penerima);
+        updateSaldo(saldoasal,asal);
+        updateSaldo(saldopenerima,penerima);
     }
 
     public int cekTF(String nama){
-        int id = 0;
+        int saldo = 0;
         try{
             sql = "SELECT * FROM user WHERE nama = ?";
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1,nama);
-            ResultSet rs = stat.executeQuery();
-            if(rs.next()){
-                id = rs.getInt("id");
-            }else {
-                id = 0;
-            }
-        }catch (SQLException e){
-            System.out.println(e);
-        }
-        return id;
-    }
-
-    public int cekTFsaldo(int id){
-        int saldo = 0;
-        try{
-            sql = "SELECT * FROM user WHERE id = ?";
-            PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             if(rs.next()){
                 saldo = rs.getInt("saldo");
