@@ -5,14 +5,15 @@ import KoneksiDB.KoneksiDB;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserModel {
     private String sql;
     Connection conn = KoneksiDB.getconection();
 
-    public ArrayList<User> getUser(){
-        ArrayList<User> arraylistUser = new ArrayList<>();
+    public List<User> getUser(){
+        List<User> arraylistUser = new ArrayList<>();
         try {
             Statement stat = conn.createStatement();
             sql = "SELECT * FROM user";
@@ -29,8 +30,8 @@ public class UserModel {
         return arraylistUser;
     }
 
-    public ArrayList<User> getUserby(int id){
-        ArrayList<User> arraylistUser = new ArrayList<>();
+    public List<User> getUserby(int id){
+        List<User> arraylistUser = new ArrayList<>();
         try {
             sql = "SELECT * FROM user where id =?";
             PreparedStatement statAlfa = conn.prepareStatement(sql);
@@ -48,8 +49,8 @@ public class UserModel {
         return arraylistUser;
     }
 
-    public ArrayList<Rekening> getsaldoby(int saldo){
-        ArrayList<Rekening> arraylistrek = new ArrayList<>();
+    public List<Rekening> getsaldoby(int saldo){
+        List<Rekening> arraylistrek = new ArrayList<>();
         try {
             sql = "SELECT * FROM user where id = ?";
             PreparedStatement statAlfa = conn.prepareStatement(sql);

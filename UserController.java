@@ -5,6 +5,7 @@ import Entity.User;
 import Model.AllObjectModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserController {
 
@@ -28,11 +29,11 @@ public class UserController {
         }
     }
 
-    public ArrayList<User> getDataUser(){
+    public List<User> getDataUser(){
         return AllObjectModel.userModel.getUser();
     }
-    public ArrayList<Rekening> getSaldo(int cek) {return  AllObjectModel.userModel.getsaldoby(cek);}
-    public ArrayList<User> getByid(int cek){
+    public List<Rekening> getSaldo(int cek) {return  AllObjectModel.userModel.getsaldoby(cek);}
+    public List<User> getByid(int cek){
         return AllObjectModel.userModel.getUserby(cek);
     }
 
