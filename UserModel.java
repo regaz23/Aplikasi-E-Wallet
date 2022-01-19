@@ -25,7 +25,7 @@ public class UserModel {
                 arraylistUser.add(userEntity);
             }
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return arraylistUser;
     }
@@ -44,7 +44,7 @@ public class UserModel {
                 arraylistUser.add(userEntity);
             }
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return arraylistUser;
     }
@@ -61,11 +61,10 @@ public class UserModel {
                 arraylistrek.add(rek);
             }
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return arraylistrek;
     }
-    //VALUE('%s', '%s', '%s', '%s', '%s', '%s', '%d')
 
     public void registrasi(User User){
         try {
@@ -77,11 +76,11 @@ public class UserModel {
             stat.setString(4,User.getNoktp());
             stat.setString(5,User.getNotelp());
             stat.setString(6,User.getAlamat());
-            stat.setInt(7,User.getSaldo());
+            stat.setInt(7,Rekening.getSaldo());
 
             stat.executeUpdate();
         }catch (SQLException e){
-            System.out.println("Gagal Registrasi!!");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -99,7 +98,7 @@ public class UserModel {
                 cek = 0;
             }
         }catch (SQLException e){
-            System.out.println("Password / Email Salah!!");
+            System.out.println(e.getMessage());
         }return cek;
     }
 
@@ -112,7 +111,7 @@ public class UserModel {
 
             stat.executeUpdate();
         }catch (SQLException e){
-            System.out.println("Gagal Ubah Password!!");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -125,7 +124,7 @@ public class UserModel {
 
             stat.executeUpdate();
         }catch (SQLException e){
-            System.out.println("Gagal Mengubah Nomor Telepon!!");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -138,7 +137,7 @@ public class UserModel {
 
             stat.executeUpdate();
         }catch (SQLException e){
-            System.out.println("Gagal Ubah Alamat!!");
+            System.out.println(e.getMessage());
         }
     }
     public void updateSaldo(int saldo, int id){
@@ -150,27 +149,31 @@ public class UserModel {
 
             stat.executeUpdate();
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
-    public void Transfers(String namaasal, String namapenerima, int jumlah){
-        int asal = cekTF(namaasal);
-        int penerima = cekTF(namapenerima);
+    public void Transfers(int idasal, String namapenerima, int jumlah){
+        try {
+            int asal = cekTFsaldo(idasal);
+            int penerima = cekTFsaldo(cekTFid(namapenerima));
 
-        int saldoasal = asal - jumlah;
-        int saldopenerima = penerima + jumlah;
+            int saldoasal = asal - jumlah;
+            int saldopenerima = penerima + jumlah;
 
-        updateSaldo(saldoasal,asal);
-        updateSaldo(saldopenerima,penerima);
+            updateSaldo(saldoasal, idasal);
+            updateSaldo(saldopenerima, cekTFid(namapenerima));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    public int cekTF(String nama){
+    public int cekTFsaldo(int id){
         int saldo = 0;
         try{
-            sql = "SELECT * FROM user WHERE nama = ?";
+            sql = "SELECT * FROM user WHERE id = ?";
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1,nama);
+            stat.setInt(1,id);
             ResultSet rs = stat.executeQuery();
             if(rs.next()){
                 saldo = rs.getInt("saldo");
@@ -178,8 +181,26 @@ public class UserModel {
                 saldo = 0;
             }
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return saldo;
+    }
+
+    public int cekTFid(String nama){
+        int id = 0;
+        try{
+            sql = "SELECT * FROM user WHERE nama = ?";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, nama);
+            ResultSet rs = stat.executeQuery();
+            if(rs.next()){
+                id = rs.getInt("id");
+            }else {
+                id = 0;
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return id;
     }
 }

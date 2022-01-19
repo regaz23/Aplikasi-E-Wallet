@@ -1,6 +1,7 @@
 package GUI;
 
 import Controller.AllObjectController;
+import Entity.Rekening;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,19 +10,19 @@ import java.awt.event.ActionListener;
 
 public class RegisGui extends JFrame{
     public RegisGui(){comp();}
-    JLabel lbemail = new JLabel("Email");
-    JLabel lbpass = new JLabel("Password");
-    JLabel lbnama = new JLabel("Nama");
-    JLabel lbnoktp = new JLabel("No. ktp");
-    JLabel lbnotelp = new JLabel("No. telp");
-    JLabel lbalamat = new JLabel("Alamat");
+    protected JLabel lbemail = new JLabel("Email");
+    protected JLabel lbpass = new JLabel("Password");
+    protected JLabel lbnama = new JLabel("Nama");
+    protected JLabel lbnoktp = new JLabel("No. ktp");
+    protected JLabel lbnotelp = new JLabel("No. telp");
+    protected JLabel lbalamat = new JLabel("Alamat");
 
-    JTextField txtemail = new JTextField();
-    JPasswordField txtpass = new JPasswordField();
-    JTextField txtnama = new JTextField();
-    JTextField txtnoktp = new JTextField();
-    JTextField txtnotelp = new JTextField();
-    JTextField txtalamat = new JTextField();
+    protected JTextField txtemail = new JTextField();
+    protected JPasswordField txtpass = new JPasswordField();
+    protected JTextField txtnama = new JTextField();
+    protected JTextField txtnoktp = new JTextField();
+    protected JTextField txtnotelp = new JTextField();
+    protected JTextField txtalamat = new JTextField();
 
     JButton btnregis = new JButton("Daftarkan");
 
@@ -87,7 +88,7 @@ public class RegisGui extends JFrame{
                 String alamat = txtalamat.getText();
                 String email = txtemail.getText();
                 String pass = txtpass.getText();
-                int saldo = 0;
+                Rekening saldo = new Rekening(0);
                 if(nama.length() != 0 && noktp.length() != 0 && notelp.length() != 0 && alamat.length() != 0
                 && email.length() != 0 && pass.length() != 0){
                     AllObjectController.user.registrasi(email, pass, nama, noktp, notelp, alamat, saldo);

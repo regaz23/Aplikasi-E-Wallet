@@ -2,7 +2,8 @@ package Entity;
 
 public class User extends Penduduk {
     protected String email, pass;
-    protected int id, saldo;
+    protected int id;
+    Rekening saldo;
 
     public User(String email, String pass, int id, String nama, String noktp, String notelp, String alamat){
         super (nama, noktp, notelp, alamat);
@@ -11,10 +12,11 @@ public class User extends Penduduk {
         this.id = id;
     }
 
-    public User(String email, String pass, String nama, String noktp, String notelp, String alamat) {
+    public User(String email, String pass, String nama, String noktp, String notelp, String alamat, Rekening saldo) {
         super (nama, noktp, notelp, alamat);
         this.email = email;
         this.pass = pass;
+        this.saldo = saldo;
     }
 
 
@@ -42,10 +44,4 @@ public class User extends Penduduk {
         this.id = id;
     }
 
-    public int getSaldo (){
-        return saldo;
-    }
-    public void setSaldo(int saldo){
-        this.saldo = saldo;
-    }
 }
